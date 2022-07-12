@@ -1,7 +1,8 @@
+/* eslint-disable react/prop-types */
 import React from 'react';
-import { TouchableOpacity, StyleSheet, Text } from 'react-native';
+import {TouchableOpacity, StyleSheet, Text} from 'react-native';
 
-const ButtonBase = ({ title, handlePress, bg, color }) => {
+const ButtonBase = ({title, handlePress, bg, color}) => {
   console.log(handlePress);
   return (
     <TouchableOpacity style={[styles.btn, bg]} onPress={handlePress}>

@@ -1,6 +1,7 @@
+/* eslint-disable require-jsdoc */
 /* eslint-disable no-return-assign */
 /* eslint-disable no-use-before-define */
-import React, { useState, useEffect, useRef } from 'react';
+import React, {useState, useEffect, useRef} from 'react';
 import {
   View,
   Text,
@@ -11,20 +12,18 @@ import {
   ActivityIndicator,
   SafeAreaView,
 } from 'react-native';
-import { WebView } from 'react-native-webview';
-import { useSelector } from 'react-redux';
+import {WebView} from 'react-native-webview';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import Colors from '../constants/Colors';
 import AsyncStorage from '@react-native-community/async-storage';
+import {REDIRECT_URI} from '../constants/Config';
 
 export default function WebApp() {
   const [url, setUrl] = useState();
-  // const activeCommunity = useSelector(
-  //   (state) => state?.community?.publicCommunityDetails
-  // );
+
   const activeCommunity = {
     customSSO: {
-      callbackURL: 'https://edit-with-rahul-community.avalonmeta.com/oauth2/callback',
+      callbackURL: REDIRECT_URI,
     },
   };
   console.log(activeCommunity);
@@ -39,13 +38,11 @@ export default function WebApp() {
   }, []);
 
   useEffect(() => {
-    let code;
+    let newURL;
     const getCode = async () => {
-      code = await AsyncStorage.getItem('code');
+      newURL = await AsyncStorage.getItem('url');
       if (activeCommunity?.customSSO?.callbackURL) {
-        const newUrl = `${activeCommunity.customSSO.callbackURL}?code=${code}`;
-        console.log('newURL', newUrl);
-        setUrl(newUrl);
+        setUrl(newURL);
       }
     };
 
@@ -69,8 +66,10 @@ export default function WebApp() {
           PermissionsAndroid.PERMISSIONS.RECORD_AUDIO,
         ]);
         if (
-          granted['android.permission.RECORD_AUDIO'] === PermissionsAndroid.RESULTS.GRANTED &&
-          granted['android.permission.CAMERA'] === PermissionsAndroid.RESULTS.GRANTED
+          granted['android.permission.RECORD_AUDIO'] ===
+            PermissionsAndroid.RESULTS.GRANTED &&
+          granted['android.permission.CAMERA'] ===
+            PermissionsAndroid.RESULTS.GRANTED
         ) {
           return true;
         }
@@ -118,8 +117,11 @@ export default function WebApp() {
           alignItems: 'center',
         }}
       >
-        <Text style={{ textAlign: 'center', fontSize: 18, paddingHorizontal: 10 }}>
-          Grant microphone and camera permission to app to access community webview
+        <Text
+          style={{textAlign: 'center', fontSize: 18, paddingHorizontal: 10}}
+        >
+          Grant microphone and camera permission to app to access community
+          webview
         </Text>
         <Pressable
           onPress={goToSettings}
@@ -131,23 +133,23 @@ export default function WebApp() {
             marginTop: 8,
           }}
         >
-          <Text style={{ color: '#fff', fontSize: 16 }}>Go To Settings</Text>
+          <Text style={{color: '#fff', fontSize: 16}}>Go To Settings</Text>
         </Pressable>
       </View>
     );
   }
 
-  if (url)
+  if (url) {
     return (
-      <SafeAreaView style={{ flex: 1 }}>
-        <View style={{ alignItems: 'flex-end', backgroundColor: Colors.white }}>
-          <Pressable onPress={reloadWebView} style={{ width: 38, padding: 5 }}>
+      <SafeAreaView style={{flex: 1}}>
+        <View style={{alignItems: 'flex-end', backgroundColor: Colors.white}}>
+          <Pressable onPress={reloadWebView} style={{width: 38, padding: 5}}>
             <MaterialIcons name="refresh" size={24} color={Colors.dark2} />
           </Pressable>
         </View>
         <WebView
           ref={WebViewRef}
-          style={{ flex: 1 }}
+          style={{flex: 1}}
           source={{
             uri: url,
           }}
@@ -168,6 +170,7 @@ export default function WebApp() {
         )}
       </SafeAreaView>
     );
+  }
 
   return null;
 }
