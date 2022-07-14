@@ -145,8 +145,6 @@ router.post("/login", async (req, res) => {
         redirect_uri,
       });
 
-      console.log("!!!!");
-
       if (isAuthenticated.message === SUCCESS) {
         return res
           .status(200)

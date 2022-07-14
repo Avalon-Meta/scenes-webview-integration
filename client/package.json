@@ -4,6 +4,8 @@
   "private": true,
   "scripts": {
     "android": "react-native run-android",
+    "build:bundle": "react-native bundle --platform android --dev false --entry-file index.js --bundle-output android/app/src/main/assets/index.android.bundle --assets-dest android/app/src/main/res/",
+    "release:android": "cd android && ./gradlew assembleDebug",
     "ios": "react-native run-ios",
     "start": "react-native start",
     "test": "jest",
