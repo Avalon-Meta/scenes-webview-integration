@@ -17,7 +17,7 @@ Currently, there are two ways to integrate your custom SSO.
 
   ![Login](https://user-images.githubusercontent.com/58210877/178427901-de181d63-7bb8-44ea-a150-03aad304fa8f.png)
 
-  Upon clicking sign in with X or Y as shown in the above image. A Webview will open with the login UI page of X or Y. In terms of this project the login UI project (react app inside `auth-client`) will open in the webview.
+  Upon clicking sign in with X or Y as shown in the above image. A Webview will open with the login UI page of X or Y.
 
   To initiate an OAuth 2.0 login workflow when a user clicks on `Sign in with X`  
   you need to open the login URL with parameters like `redirect_uri`, `response_type`, and `client_id` in a Webview. \
@@ -25,7 +25,7 @@ Currently, there are two ways to integrate your custom SSO.
 
   Now the user logs in and a token (let's say X token) is stored to keep the user logged in.
 
-  The user has logged in automatically when opening the community tab as we already have the X token.
+  The user has logged in automatically when opening the community tab as we already have the X token so the user doesn't need to signin again.
 
 - 2. ### Native
 
