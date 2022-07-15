@@ -3,7 +3,6 @@ import React from 'react';
 import {TouchableOpacity, StyleSheet, Text} from 'react-native';
 
 const ButtonBase = ({title, handlePress, bg, color}) => {
-  console.log(handlePress);
   return (
     <TouchableOpacity style={[styles.btn, bg]} onPress={handlePress}>
       <Text style={[styles.title, color]}>{title}</Text>

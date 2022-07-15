@@ -51,8 +51,7 @@ const Login = ({setUser}) => {
       </View>
 
       <Text style={{fontSize: 24, textAlign: 'center', marginTop: 12}}>
-        {' '}
-        Welcome Back{' '}
+        Welcome Back
       </Text>
       <View style={styles.formGroup}>
         <Text style={styles.label}>Enter your email</Text>
