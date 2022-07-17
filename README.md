@@ -1,3 +1,7 @@
+# The Aim of the Project
+
+This project will help you integrate your white-labeled `Scenes` community inside your mobile app.
+
 # The components of this project explained
 
 - ## auth-server
@@ -20,7 +24,7 @@ Currently, there are two ways to integrate your custom SSO.
   Upon clicking sign in with X or Y as shown in the above image. A Webview will open with the login UI page of X or Y.
 
   To initiate an OAuth 2.0 login workflow when a user clicks on `Sign in with X`  
-  you need to open the login URL with parameters like `redirect_uri`, `response_type`, and `client_id` in a Webview. \
+  you need to open the login URL with parameters like `redirect_uri`, `response_type`, and `client_id` in a Webview (hit the authorize endpoint with required parameters). \
   example URL: `https://signin.x.com/?client_id=4203u4fw30r23&response_type=code&redirect_uri=https://scenes.your-community.community/oauth2/callback`
 
   Now the user logs in and a token (let's say X token) is stored to keep the user logged in.
