@@ -3,7 +3,6 @@ const router = require("express").Router();
 const User = require("../../models/user");
 
 router.get("/userinfo", checkJWT, async (req, res) => {
-  console.log(req.user);
   const { userId } = req?.user;
   try {
     const user = await User.findById(userId);

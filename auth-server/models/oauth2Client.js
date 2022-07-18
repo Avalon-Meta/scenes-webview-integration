@@ -7,6 +7,4 @@ const oauth2ClientSchema = new mongoose.Schema({
   redirectURI: { type: String, required: true },
 });
 
-// mongoose.methods.authenticate
-
 module.exports = mongoose.model("OAUTH2Client", oauth2ClientSchema);

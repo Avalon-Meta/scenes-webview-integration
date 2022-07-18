@@ -8,6 +8,4 @@ const userSchema = new mongoose.Schema({
   profileUrl: String,
 });
 
-// mongoose.methods.authenticate
-
 module.exports = mongoose.model("User", userSchema);
