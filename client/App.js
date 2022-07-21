@@ -1,47 +1,57 @@
-import {NavigationContainer} from '@react-navigation/native';
-import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
+/* eslint-disable react/jsx-props-no-spreading */
+/* eslint-disable no-use-before-define */
+/* eslint-disable react/jsx-filename-extension */
+import { NavigationContainer } from "@react-navigation/native";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
-import React, {useState} from 'react';
-import {StyleSheet, View} from 'react-native';
-import Login from './src/screens/Login';
-import Home from './src/screens/Home';
-import Community from './src/screens/Community';
+import React, { useState } from "react";
+// import { StyleSheet } from "react-native";
+import Login from "./src/screens/Login";
+import HomeScreen from "./src/screens/HomeScreen";
+import WebViewFlow from "./src/components/WebViewFlow";
+import { FLOW } from "./src/constants/Config";
 
-const Tab = createBottomTabNavigator();
+const Stack = createNativeStackNavigator();
 
 const App = () => {
   const [user, setUser] = useState(null);
-
-  if (!user) {
-    return (
-      <View style={styles.container}>
-        <Login setUser={setUser} />
-      </View>
-    );
-  }
+  const [flow, setFlow] = useState(FLOW.NATIVE);
 
   return (
     <NavigationContainer>
-      <Tab.Navigator
-        screenOptions={({route}) => ({
-          tabBarActiveTintColor: 'tomato',
-          tabBarInactiveTintColor: 'gray',
-        })}
-      >
-        <Tab.Screen name="Home">
-          {(props) => <Home {...props} setUser={setUser} />}
-        </Tab.Screen>
-        <Tab.Screen name="Community" component={Community} />
-      </Tab.Navigator>
+      {user ? (
+        <Stack.Navigator initialRouteName="HomeScreen">
+          <Stack.Screen name="HomeScreen" options={{ headerShown: false }}>
+            {(props) => <HomeScreen {...props} setUser={setUser} flow={flow} />}
+          </Stack.Screen>
+        </Stack.Navigator>
+      ) : (
+        <Stack.Navigator initialRouteName="Login">
+          <Stack.Screen name="Login">
+            {(props) => (
+              <Login
+                {...props}
+                setUser={setUser}
+                flow={flow}
+                setFlow={setFlow}
+              />
+            )}
+          </Stack.Screen>
+
+          <Stack.Screen name="WebViewFlow">
+            {(props) => <WebViewFlow {...props} setUser={setUser} />}
+          </Stack.Screen>
+        </Stack.Navigator>
+      )}
     </NavigationContainer>
   );
 };
 
-const styles = StyleSheet.create({
-  container: {
-    flexDirection: 'column',
-    alignItems: 'center',
-  },
-});
+// const styles = StyleSheet.create({
+//   container: {
+//     flexDirection: "column",
+//     alignItems: "center"
+//   }
+// });
 
 export default App;
