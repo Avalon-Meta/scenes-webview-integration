@@ -96,7 +96,7 @@ Currently, there are two ways to integrate your custom SSO.
 
   4. Inside the community tab create a `WebView` component.
 
-  - Ensure you have microphone and camera access before opening `WebView` component. The stage part of the scenes app requires mic and camera permissions. Not doing this step will result in `WebView` crashing.
+  - Ensure you have microphone and camera access before opening `WebView` component. The stage part of the scenes app requires mic and camera permissions. Not doing this step will result in `WebView` showing abnormal behaviour.
   - Open a webview with `uri` of your community, say `https://x.scenes.social`
 
   ```
