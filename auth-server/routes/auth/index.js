@@ -1,3 +1,5 @@
+/* eslint-disable camelcase */
+// eslint-disable-next-line new-cap
 const router = require("express").Router();
 const User = require("../../models/user");
 const authenticate = require("../../utils/authenticate");
@@ -21,38 +23,38 @@ router.get("/oauth2/authorize", (req, res) => {
 router.post("/oauth2/token", async (req, res) => {
   const { grant_type, code, redirect_uri } = req.body;
   const basicToken = req.headers["authorization"].split(" ")[1];
-  var b = Buffer.from(basicToken, "base64");
-  var decodedString = b.toString();
+  const b = Buffer.from(basicToken, "base64");
+  const decodedString = b.toString();
   const authString = decodedString.split(":");
   const client_id = authString[0];
   const client_secret = authString[1];
 
   // verify client_id and client_secret and code
+  const clientDetailsCache = cache.get(code);
+
+  if (!clientDetailsCache) {
+    return res
+      .status(403)
+      .json({ mssage: "invalid or expired code, please retry logging in" });
+  }
+
   const isValidOAUTH2Client = await checkOAUTH2Client(
     client_id,
     client_secret,
-    redirect_uri
+    redirect_uri,
+    clientDetailsCache
   );
 
-  const clientDetails = cache.get(code);
-
-  if (
-    isValidOAUTH2Client &&
-    clientDetails?.client_id === client_id &&
-    clientDetails?.redirect_uri === redirect_uri &&
-    grant_type === "authorization_code"
-  ) {
-    // create an access token for the uid
-    // send a response
-
+  if (isValidOAUTH2Client && grant_type === "authorization_code") {
+    // create an access token with uid
     const { uid } = clientDetails;
     // todo: add hostName in jwt field
     token = jwt.sign({ userId: uid }, process.env.TOKEN_KEY, {
-      expiresIn: "2h",
+      expiresIn: "2h"
     });
 
     return res.status(200).json({
-      access_token: token,
+      access_token: token
     });
   }
 
@@ -76,11 +78,11 @@ router.post("/register", async (req, res) => {
       email,
       firstName: first_name,
       lastName: last_name,
-      hash,
+      hash
     });
   } catch (e) {
     return res.sendStatus(500).json({
-      message: "Internal server error. Failed to register a new user",
+      message: "Internal server error. Failed to register a new user"
     });
   }
 
@@ -88,7 +90,7 @@ router.post("/register", async (req, res) => {
   const data = {
     email,
     firstName,
-    lastName,
+    lastName
   };
 
   if (redirect_uri && client_id && response_type === "code") {
@@ -113,26 +115,22 @@ router.post("/login", async (req, res) => {
     return res.status(403).json({ message: "email not found" });
   }
 
+  // initiate Oauth 2.0 flow if client_id param found
   if (client_id && response_type && redirect_uri) {
+    // initiate code flow
     if (response_type === "code") {
-      let code = nanoid(10);
+      const code = nanoid(10);
 
       // generate a unique code and store it in cache
-      // code : {
-      //    client_id: , the client id code is assigned to verify later
-      //    email or uid,
-      // }
-      // use random uid generator later and redis
+      // used to verify client later in token endpoint
       cache.set(code, {
         client_id,
         uid: user?._id.toString(),
-        redirect_uri,
+        redirect_uri
       });
 
       if (isAuthenticated.message === SUCCESS) {
-        return res
-          .status(200)
-          .json({ url: `${process.env.REDIRECT_URI}?code=${code}` });
+        return res.status(200).json({ url: `${redirect_uri}?code=${code}` });
       }
 
       return res.status(401).json({ message: "invalid credentials" });

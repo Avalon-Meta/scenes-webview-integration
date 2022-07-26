@@ -1,4 +1,5 @@
 const checkJWT = require("../../utils/checkJWT");
+// eslint-disable-next-line new-cap
 const router = require("express").Router();
 const User = require("../../models/user");
 
@@ -14,7 +15,7 @@ router.get("/userinfo", checkJWT, async (req, res) => {
         email,
         first_name: firstName,
         last_name: lastName,
-        uid: userId,
+        uid: userId
       };
       return res.status(200).json(data);
     }
