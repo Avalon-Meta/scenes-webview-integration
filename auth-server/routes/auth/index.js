@@ -47,7 +47,7 @@ router.post("/oauth2/token", async (req, res) => {
 
   if (isValidOAUTH2Client && grant_type === "authorization_code") {
     // create an access token with uid
-    const { uid } = clientDetails;
+    const { uid } = clientDetailsCache;
     // todo: add hostName in jwt field
     token = jwt.sign({ userId: uid }, process.env.TOKEN_KEY, {
       expiresIn: "2h"
@@ -130,7 +130,9 @@ router.post("/login", async (req, res) => {
       });
 
       if (isAuthenticated.message === SUCCESS) {
-        return res.status(200).json({ url: `${redirect_uri}?code=${code}` });
+        return res
+          .status(200)
+          .json({ url: `${redirect_uri}?code=${code}`, code });
       }
 
       return res.status(401).json({ message: "invalid credentials" });
