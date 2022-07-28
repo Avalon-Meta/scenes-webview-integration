@@ -32,6 +32,8 @@ router.post("/oauth2/token", async (req, res) => {
   // verify client_id and client_secret and code
   const clientDetailsCache = cache.get(code);
 
+  console.log("Token Endpoint");
+  console.log(code, clientDetailsCache);
   if (!clientDetailsCache) {
     return res
       .status(403)
@@ -43,6 +45,14 @@ router.post("/oauth2/token", async (req, res) => {
     client_secret,
     redirect_uri,
     clientDetailsCache
+  );
+
+  console.log(isValidOAUTH2Client);
+  console.log(
+    "redirectUri",
+    redirect_uri,
+    "cacheRedirectURI",
+    clientDetailsCache.redirect_uri
   );
 
   if (isValidOAUTH2Client && grant_type === "authorization_code") {
