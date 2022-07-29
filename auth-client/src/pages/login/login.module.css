@@ -1,0 +1,22 @@
+.formGroup {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.form {
+  max-width: 350px;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.customLabel {
+  margin-top: 1em;
+  margin-bottom: 0.4em;
+  font-size: 0.8em;
+}
+
+.toast {
+}
