@@ -5,6 +5,8 @@ import 'package:flutter_demo/screens/login.dart';
 import 'package:provider/provider.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+
   runApp(MultiProvider(
       providers: [ChangeNotifierProvider(create: (_) => User("", "", ""))],
       child: MyApp()));
