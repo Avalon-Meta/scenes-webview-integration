@@ -13,27 +13,6 @@ This project will help you integrate your white-labeled `Scenes` community insid
 
 ## Integrating Custom SSO
 
-Currently, there are two ways to integrate your custom SSO.
-
-- 1. Webview Flow
-  - Named `Webview flow` because the login ui opens in a `Webview` component.
-  - Fun fact: The `Webview` component's `uri`/`url` hits the `auth-server` which redirects you to `auth-client` to show the login ui form.
-- 2. Native Flow
-  - Named `Native flow` because the login ui is embedded in to the app.
-
-### When to use?
-
-- Webview flow
-
-  - When you wish to use your existing hosted login UI to be shown to user.
-
-- Native Flow
-
-  - When you don't have a hosted login UI.
-  - Or you just want native app UI to be the login page.
-
-### Integration Guide
-
 - **Native Flow**
 
 - Cookie Method
