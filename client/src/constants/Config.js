@@ -1,7 +1,7 @@
 const AUTH_SERVER_URI = "https://custom-sso.herokuapp.com";
 const REDIRECT_URI =
   "https://edit-with-rahul-community.avalonmeta.com/oauth2/callback";
-const CLIENT_ID = "dLmXtHfS7bSu9pG7";
+const CLIENT_ID = "IQkCIOqm55bljU5c";
 
 const FLOW = {
   NATIVE: "native",
